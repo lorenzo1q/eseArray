@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Numeri Casuali</title>
+<style>
+  body { font-family: Arial; text-align: center; background-color: #f0f0f0; }
+  .griglia {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 5px;
+    max-width: 500px;
+    margin: 20px auto;
+  }
+  .cella {
+    background: #ddd;
+    padding: 8px;
+    border-radius: 4px;
+  }
+  .grande {
+    background: #ffcc66; /* evidenzia i numeri > 50 */
+  }
+</style>
+</head>
+<body>
+
+<h2>Numeri casuali tra -100 e 100</h2>
+<div id="griglia" class="griglia"></div>
+
+<p id="info"></p>
+
+<script>
+  // Creo un array vuoto
+  let numeri = [];
+
+  // Riempio l’array con 100 numeri casuali tra -100 e 100
+  for (let i = 0; i < 100; i++) {
+    let n = Math.floor(Math.random() * 201) - 100; // genera da -100 a 100
+    numeri.push(n);
+  }
+
+  // Calcolo la media
+  let somma = 0;
+  for (let n of numeri) {
+    somma += n;
+  }
+  let media = somma / numeri.length;
+
+  // Trovo il massimo e il minimo
+  let max = Math.max(...numeri);
+  let min = Math.min(...numeri);
+
+  // Creo un nuovo array con i numeri maggiori di 50
+  let maggiori50 = [];
+  for (let n of numeri) {
+    if (n > 50) {
+      maggiori50.push(n);
+    }
+  }
+
+  // Mostro i numeri nella griglia
+  let griglia = document.getElementById("griglia");
+  for (let n of numeri) {
+    let cella = document.createElement("div");
+    cella.classList.add("cella");
+    if (n > 50) cella.classList.add("grande");
+    cella.textContent = n;
+    griglia.appendChild(cella);
+  }
+
+  // Mostro i risultati
+  let info = document.getElementById("info");
+  info.innerHTML = `
+    <b>Media:</b> ${media.toFixed(2)}<br>
+    <b>Massimo:</b> ${max}<br>
+    <b>Minimo:</b> ${min}<br>
+    <b>Numeri maggiori di 50:</b> ${maggiori50.join(", ")}
+  `;
+</script>
+
+</body>
+</html>
